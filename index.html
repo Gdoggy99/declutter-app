@@ -3,115 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Declutter Sprint</title>
+  <title>Declutter Sprint Pro</title>
   <meta name="theme-color" content="#4f46e5" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon-192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
   <style>
-    :root{
-      --bg:#f5f7fb;
-      --card:#ffffff;
-      --text:#1f2937;
-      --muted:#6b7280;
-      --border:#e5e7eb;
-      --accent:#4f46e5;
-      --accent2:#16a34a;
-      --soft:#eef2ff;
-      --danger:#dc2626;
-      --shadow:0 12px 28px rgba(0,0,0,.08);
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:linear-gradient(180deg,#eef2ff 0%, var(--bg) 100%);
-      color:var(--text);
-      min-height:100vh;
-    }
-    .wrap{max-width:560px;margin:0 auto;padding:16px 14px 40px}
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:18px;
-      margin-top:14px;
-    }
-    h1{margin:4px 0 6px;font-size:1.7rem;line-height:1.15}
-    h2{margin:0 0 12px;font-size:1.1rem}
-    p{margin:0}
-    .sub{color:var(--muted);font-size:.96rem}
-    .hero{
-      display:flex;justify-content:space-between;align-items:flex-start;gap:12px
-    }
-    .pill{
-      display:inline-block;padding:8px 12px;border-radius:999px;font-weight:700;font-size:.9rem;background:var(--soft);color:#3730a3
-    }
-    .grid2{
-      display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px
-    }
-    .stat{
-      border:1px solid var(--border);border-radius:14px;padding:14px;background:#fafcff
-    }
-    .stat .label{font-size:.85rem;color:var(--muted);margin-bottom:4px}
-    .stat .value{font-size:1.45rem;font-weight:800}
-    .timer{
-      text-align:center;padding:10px 0 6px
-    }
-    .timer-time{
-      font-size:3rem;font-weight:900;letter-spacing:-.03em;
-      transition:transform .2s ease;
-    }
-    .timer.running .timer-time{transform:scale(1.02)}
-    .preset-row,.btn-row{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px
-    }
-    .btn-row.two{grid-template-columns:1fr 1fr}
-    button{
-      appearance:none;border:none;border-radius:14px;padding:14px 12px;
-      font-size:1rem;font-weight:800;cursor:pointer;
-      transition:transform .08s ease, opacity .2s ease, box-shadow .2s ease;
-      box-shadow:0 2px 0 rgba(0,0,0,.04)
-    }
-    button:active{transform:scale(.98)}
-    .preset{background:var(--soft);color:#3730a3}
-    .preset.active{background:var(--accent);color:#fff}
-    .primary{background:var(--accent2);color:#fff}
-    .secondary{background:var(--accent);color:#fff}
-    .ghost{background:#fff;border:1px solid var(--border);color:var(--text)}
-    .danger{background:#fff1f2;color:var(--danger);border:1px solid #fecdd3}
-    .toggle-row{
-      display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px
-    }
-    .message-box{
-      margin-top:14px;padding:14px;border-radius:14px;background:#f8fafc;border:1px solid var(--border);
-      min-height:54px;font-size:1rem;line-height:1.35
-    }
-    .checklist{list-style:none;padding:0;margin:0}
-    .checklist li{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      padding:11px 0;border-bottom:1px solid var(--border)
-    }
-    .checklist li:last-child{border-bottom:none}
-    .task-left{display:flex;align-items:center;gap:12px;min-width:0}
-    .task-left input[type="checkbox"]{width:22px;height:22px}
-    .task-text{font-size:1rem}
-    .done .task-text{text-decoration:line-through;color:var(--muted)}
-    .small{font-size:.9rem;color:var(--muted);margin-top:10px}
-    .progress{
-      height:10px;background:#eef2f7;border-radius:999px;overflow:hidden;margin-top:10px
-    }
-    .bar{height:100%;width:0%;background:var(--accent);transition:width .25s ease}
-    .input-row{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:12px}
-    input[type="text"]{
-      width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--border);font-size:1rem
-    }
-    .footer{text-align:center;color:var(--muted);font-size:.86rem;margin-top:16px}
-    @media (max-width:420px){
-      .grid2,.toggle-row,.preset-row,.btn-row,.btn-row.two,.input-row{grid-template-columns:1fr}
-      .timer-time{font-size:2.5rem}
-      .hero{display:block}
-      .pill{margin-top:10px}
-    }
+    :root{--bg:#f5f7fb;--card:#ffffff;--text:#1f2937;--muted:#6b7280;--border:#e5e7eb;--accent:#4f46e5;--accent2:#16a34a;--soft:#eef2ff;--danger:#dc2626;--shadow:0 14px 34px rgba(0,0,0,.08);--radius:20px}
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#eef2ff 0%, var(--bg) 100%);color:var(--text);min-height:100vh}
+    .wrap{max-width:620px;margin:0 auto;padding:16px 14px 40px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-top:14px}
+    h1{margin:4px 0 6px;font-size:1.8rem;line-height:1.15} h2{margin:0 0 12px;font-size:1.1rem} p{margin:0} .sub{color:var(--muted);font-size:.96rem}
+    .hero{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .pill{display:inline-block;padding:8px 12px;border-radius:999px;font-weight:700;font-size:.9rem;background:var(--soft);color:#3730a3}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+    .stat{border:1px solid var(--border);border-radius:16px;padding:14px;background:#fafcff;transition:transform .18s ease, box-shadow .18s ease}
+    .stat.pulse{transform:scale(1.02); box-shadow:0 10px 24px rgba(79,70,229,.14)}
+    .stat .label{font-size:.85rem;color:var(--muted);margin-bottom:4px}.stat .value{font-size:1.5rem;font-weight:900}
+    .timer{text-align:center;padding:10px 0 6px}.timer-time{font-size:3.3rem;font-weight:900;letter-spacing:-.04em;transition:transform .2s ease}
+    .timer.running .timer-time{transform:scale(1.03)}
+    .timer-ring{margin:14px auto 0;width:120px;height:120px;border-radius:50%;background:conic-gradient(var(--accent) var(--progress, 0%), #e5e7eb 0);display:grid;place-items:center;transition:background .25s ease}
+    .timer-ring-inner{width:94px;height:94px;border-radius:50%;background:#fff;display:grid;place-items:center;font-weight:800;color:var(--muted);font-size:.9rem}
+    .preset-row,.btn-row{display:grid;gap:10px;margin-top:12px}.preset-row{grid-template-columns:repeat(4,1fr)} .btn-row.two{grid-template-columns:1fr 1fr}
+    button{appearance:none;border:none;border-radius:14px;padding:14px 12px;font-size:1rem;font-weight:800;cursor:pointer;transition:transform .08s ease, background .2s ease;box-shadow:0 2px 0 rgba(0,0,0,.04)} button:active{transform:scale(.98)}
+    .preset{background:var(--soft);color:#3730a3}.preset.active{background:var(--accent);color:#fff}
+    .primary{background:var(--accent2);color:#fff}.secondary{background:var(--accent);color:#fff}.ghost{background:#fff;border:1px solid var(--border);color:var(--text)}.warning{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}.danger{background:#fff1f2;color:var(--danger);border:1px solid #fecdd3}
+    .toggle-row,.mode-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .message-box{margin-top:14px;padding:14px;border-radius:16px;background:#f8fafc;border:1px solid var(--border);min-height:56px;font-size:1rem;line-height:1.35}
+    .install-banner{display:none;margin-top:12px;padding:12px 14px;border-radius:16px;background:#eef2ff;border:1px solid #c7d2fe}
+    .install-banner.show{display:block}
+    .checklist{list-style:none;padding:0;margin:0}.checklist li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}.checklist li:last-child{border-bottom:none}
+    .task-left{display:flex;align-items:center;gap:12px;min-width:0;flex:1}.task-left input[type="checkbox"]{width:22px;height:22px}.task-text{font-size:1rem}.done .task-text{text-decoration:line-through;color:var(--muted)}
+    .small{font-size:.9rem;color:var(--muted);margin-top:10px}.progress{height:10px;background:#eef2f7;border-radius:999px;overflow:hidden;margin-top:10px}.bar{height:100%;width:0%;background:var(--accent);transition:width .25s ease}
+    .input-row{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:12px} input[type="text"]{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--border);font-size:1rem}
+    .mini-note{margin-top:10px;padding:10px 12px;border-radius:14px;background:#f8fafc;border:1px solid var(--border);font-size:.92rem;color:var(--muted)} .footer{text-align:center;color:var(--muted);font-size:.86rem;margin-top:16px}
+    @media (max-width:520px){.grid3,.toggle-row,.mode-row,.preset-row,.btn-row.two,.input-row{grid-template-columns:1fr}.timer-time{font-size:2.8rem}.hero{display:block}.pill{margin-top:10px}}
   </style>
 </head>
 <body>
@@ -120,45 +46,48 @@
       <div class="hero">
         <div>
           <p class="sub">Phone-friendly mini app</p>
-          <h1>Declutter Sprint</h1>
+          <h1>Declutter Sprint Pro</h1>
           <p class="sub">Short bursts. Real progress. No overthinking.</p>
         </div>
         <div id="toneBadge" class="pill">Gentle mode</div>
       </div>
 
-      <div class="grid2">
-        <div class="stat">
-          <div class="label">Sessions completed</div>
-          <div id="sessionsValue" class="value">0</div>
-        </div>
-        <div class="stat">
-          <div class="label">Current streak</div>
-          <div id="streakValue" class="value">0 days</div>
-        </div>
+      <div id="installBanner" class="install-banner">
+        <div style="font-weight:800;margin-bottom:8px;">Install this app</div>
+        <div class="small" style="margin:0 0 10px 0;color:#374151;">Tap below to install, or use Chrome’s menu if your phone prefers that.</div>
+        <button class="secondary" id="installBtn" style="width:100%;">Install app</button>
       </div>
 
+      <div class="grid3">
+        <div id="sessionsStat" class="stat"><div class="label">Sessions completed</div><div id="sessionsValue" class="value">0</div></div>
+        <div class="stat"><div class="label">Current streak</div><div id="streakValue" class="value">0 days</div></div>
+        <div class="stat"><div class="label">This week</div><div id="weekValue" class="value">0</div></div>
+      </div>
       <div id="timerBox" class="timer">
         <div id="timerTime" class="timer-time">10:00</div>
         <p class="sub">Pick a sprint and press start</p>
+        <div class="timer-ring" id="timerRing"><div class="timer-ring-inner" id="ringLabel">Ready</div></div>
       </div>
-
       <div class="preset-row">
         <button class="preset active" onclick="setPreset(10, this)">10 min</button>
+        <button class="preset" onclick="setPreset(15, this)">15 min</button>
         <button class="preset" onclick="setPreset(20, this)">20 min</button>
         <button class="preset" onclick="setPreset(30, this)">30 min</button>
       </div>
-
       <div class="btn-row two">
         <button class="primary" onclick="toggleTimer()" id="startPauseBtn">Start</button>
         <button class="ghost" onclick="resetTimer()">Reset</button>
       </div>
-
       <div class="toggle-row">
         <button class="secondary" onclick="setTone('gentle')" id="gentleBtn">Gentle</button>
         <button class="ghost" onclick="setTone('tough')" id="toughBtn">Tough love</button>
       </div>
-
+      <div class="mode-row">
+        <button class="ghost" onclick="toggleWakeLock()" id="wakeLockBtn">Keep screen awake: Off</button>
+        <button class="warning" onclick="showFreshMessage()">New nudge</button>
+      </div>
       <div id="messageBox" class="message-box">A tidy corner still counts. Start small.</div>
+      <div class="mini-note" id="wakeLockNote">Tip: turn on “Keep screen awake” before starting a sprint. It works best when the app is open on-screen.</div>
     </div>
 
     <div class="card">
@@ -166,12 +95,10 @@
       <ul id="taskList" class="checklist"></ul>
       <div class="progress"><div id="progressBar" class="bar"></div></div>
       <div class="small"><span id="doneCount">0</span> of <span id="totalCount">0</span> tasks done today.</div>
-
       <div class="input-row">
         <input id="newTaskInput" type="text" placeholder="Add a task like 'clear coffee table'" />
         <button class="secondary" onclick="addTask()">Add</button>
       </div>
-
       <div class="btn-row two">
         <button class="ghost" onclick="loadDefaultTasks()">Load default routine</button>
         <button class="danger" onclick="resetToday()">Reset today</button>
@@ -188,292 +115,131 @@
       </ul>
     </div>
 
-    <div class="footer">Tip: upload this as <strong>index.html</strong> to GitHub Pages, then install it from your phone.</div>
+    <div class="footer">Proper installable version with manifest, service worker, icons, and offline support.</div>
   </div>
 
   <script>
-    const STORAGE_KEY = "declutter_sprint_app_v1";
-    const DEFAULT_TASKS = [
-      "Clear one visible surface",
-      "Put away 10 stray items",
-      "Sort one small hotspot",
-      "Take one bag to recycling or donation"
-    ];
+    const STORAGE_KEY = "declutter_sprint_app_v3";
+    const DEFAULT_TASKS = ["Clear one visible surface","Put away 10 stray items","Sort one small hotspot","Take one bag to recycling or donation"];
+    const GENTLE_MESSAGES = ["A tidy corner still counts. Start small.","Ten focused minutes is enough to change the room.","You do not need to finish everything. Just begin.","Progress beats perfection every single time.","Choose the easiest task first and build momentum."];
+    const TOUGH_MESSAGES = ["You do not need motivation. You need one honest start.","Stop circling the mess. Pick one area and attack it.","Ten minutes now beats thinking about it all evening.","No drama. No perfection. Move the clutter.","Future you will be delighted you did this properly."];
 
-    const GENTLE_MESSAGES = [
-      "A tidy corner still counts. Start small.",
-      "Ten focused minutes is enough to change the room.",
-      "You do not need to finish everything. Just begin.",
-      "Progress beats perfection every single time.",
-      "Choose the easiest task first and build momentum."
-    ];
+    let timerSeconds = 600, selectedMinutes = 10, timerId = null, running = false, wakeLock = null, deferredPrompt = null;
 
-    const TOUGH_MESSAGES = [
-      "You do not need motivation. You need one honest start.",
-      "Stop circling the mess. Pick one area and attack it.",
-      "Ten minutes now beats thinking about it all evening.",
-      "No drama. No perfection. Move the clutter.",
-      "Future you will be delighted you did this properly."
-    ];
+    function todayKey(){const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+    function startOfWeek(dateString){const d=new Date(dateString+"T12:00:00"); const day=(d.getDay()+6)%7; d.setDate(d.getDate()-day); return d.toISOString().slice(0,10)}
+    function loadData(){const raw=localStorage.getItem(STORAGE_KEY); if(!raw) return {tone:"gentle",sessionsCompleted:0,history:[],wakeLockEnabled:false,days:{}}; try{return JSON.parse(raw)}catch{return {tone:"gentle",sessionsCompleted:0,history:[],wakeLockEnabled:false,days:{}}}}
+    function saveData(data){localStorage.setItem(STORAGE_KEY, JSON.stringify(data))}
+    function ensureToday(data){const key=todayKey(); if(!data.days[key]) data.days[key]={tasks:DEFAULT_TASKS.map((text,i)=>({id:Date.now()+i,text,done:false})),sessionsToday:0}; return key}
+    function formatTime(totalSeconds){const mins=Math.floor(totalSeconds/60), secs=totalSeconds%60; return String(mins).padStart(2,"0")+":"+String(secs).padStart(2,"0")}
+    function setPreset(minutes, btn){selectedMinutes=minutes; timerSeconds=minutes*60; running=false; clearInterval(timerId); timerId=null; document.querySelectorAll(".preset").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); document.getElementById("startPauseBtn").textContent="Start"; render()}
 
-    let timerSeconds = 600;
-    let selectedMinutes = 10;
-    let timerId = null;
-    let running = false;
-
-    function todayKey() {
-      const d = new Date();
-      return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+    async function requestWakeLock(){
+      const data=loadData(); if(!data.wakeLockEnabled) return;
+      if(!("wakeLock" in navigator)){document.getElementById("wakeLockNote").textContent="Your browser may not support screen wake lock here, so the display might still dim."; return;}
+      try{wakeLock=await navigator.wakeLock.request("screen"); wakeLock.addEventListener("release", ()=>renderWakeLockState()); renderWakeLockState();}
+      catch(err){document.getElementById("wakeLockNote").textContent="Couldn't keep the screen awake automatically on this device right now."; renderWakeLockState();}
     }
+    async function releaseWakeLock(){if(wakeLock){try{await wakeLock.release()}catch(e){} wakeLock=null} renderWakeLockState()}
+    async function toggleWakeLock(){const data=loadData(); data.wakeLockEnabled=!data.wakeLockEnabled; saveData(data); if(data.wakeLockEnabled){await requestWakeLock(); document.getElementById("wakeLockNote").textContent="Keep screen awake is on. The app will try to stop the phone sleeping during a sprint."} else {await releaseWakeLock(); document.getElementById("wakeLockNote").textContent="Keep screen awake is off."} renderWakeLockState()}
+    function renderWakeLockState(){const data=loadData(); const btn=document.getElementById("wakeLockBtn"); btn.textContent="Keep screen awake: "+(data.wakeLockEnabled ? "On" : "Off"); btn.className=data.wakeLockEnabled ? "secondary" : "ghost"}
 
-    function loadData() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) {
-        return { tone: "gentle", sessionsCompleted: 0, history: [], days: {} };
-      }
-      try {
-        return JSON.parse(raw);
-      } catch {
-        return { tone: "gentle", sessionsCompleted: 0, history: [], days: {} };
-      }
-    }
-
-    function saveData(data) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }
-
-    function ensureToday(data) {
-      const key = todayKey();
-      if (!data.days[key]) {
-        data.days[key] = {
-          tasks: DEFAULT_TASKS.map((text, i) => ({ id: Date.now() + i, text, done: false })),
-          sessionsToday: 0
-        };
-      }
-      return key;
-    }
-
-    function formatTime(totalSeconds) {
-      const mins = Math.floor(totalSeconds / 60);
-      const secs = totalSeconds % 60;
-      return String(mins).padStart(2,"0") + ":" + String(secs).padStart(2,"0");
-    }
-
-    function setPreset(minutes, btn) {
-      selectedMinutes = minutes;
-      timerSeconds = minutes * 60;
-      running = false;
-      clearInterval(timerId);
-      timerId = null;
-      document.querySelectorAll(".preset").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      document.getElementById("startPauseBtn").textContent = "Start";
+    async function toggleTimer(){
+      if(running){running=false; clearInterval(timerId); timerId=null; document.getElementById("startPauseBtn").textContent="Start"; await releaseWakeLock(); render(); return;}
+      running=true; document.getElementById("startPauseBtn").textContent="Pause"; await requestWakeLock();
+      timerId=setInterval(()=>{timerSeconds-=1; render(); if(timerSeconds<=0){clearInterval(timerId); timerId=null; running=false; completeSession();}},1000);
       render();
     }
+    async function resetTimer(){running=false; clearInterval(timerId); timerId=null; timerSeconds=selectedMinutes*60; document.getElementById("startPauseBtn").textContent="Start"; await releaseWakeLock(); render()}
+    function setTone(tone){const data=loadData(); data.tone=tone; saveData(data); updateMessage(); render()}
+    function randomMessage(tone){const list=tone==="tough" ? TOUGH_MESSAGES : GENTLE_MESSAGES; return list[Math.floor(Math.random()*list.length)]}
+    function updateMessage(customMessage=null){const data=loadData(); document.getElementById("messageBox").textContent=customMessage || randomMessage(data.tone || "gentle")}
+    function showFreshMessage(){updateMessage()}
+    function weeklySessions(history){const thisWeek=startOfWeek(todayKey()); return (history||[]).filter(day=>startOfWeek(day)===thisWeek).length}
 
-    function toggleTimer() {
-      if (running) {
-        running = false;
-        clearInterval(timerId);
-        timerId = null;
-        document.getElementById("startPauseBtn").textContent = "Start";
-        render();
-        return;
-      }
-
-      running = true;
-      document.getElementById("startPauseBtn").textContent = "Pause";
-      timerId = setInterval(() => {
-        timerSeconds -= 1;
-        render();
-        if (timerSeconds <= 0) {
-          clearInterval(timerId);
-          timerId = null;
-          running = false;
-          completeSession();
-        }
-      }, 1000);
+    async function completeSession(){
+      const data=loadData(), key=ensureToday(data);
+      data.sessionsCompleted=(data.sessionsCompleted||0)+1;
+      data.days[key].sessionsToday=(data.days[key].sessionsToday||0)+1;
+      data.history.push(key); data.history=data.history.slice(-120); saveData(data);
+      timerSeconds=selectedMinutes*60; document.getElementById("startPauseBtn").textContent="Start";
+      await releaseWakeLock();
+      updateMessage(data.tone==="tough" ? "Sprint finished. Nice. Now put 5 more things away." : "Sprint complete. Nice work — that counts.");
+      const stat=document.getElementById("sessionsStat"); stat.classList.add("pulse"); setTimeout(()=>stat.classList.remove("pulse"),500);
       render();
+      try{if(navigator.vibrate) navigator.vibrate([120,60,120])}catch(e){}
+      try{alert("Sprint complete!")}catch(e){}
     }
 
-    function resetTimer() {
-      running = false;
-      clearInterval(timerId);
-      timerId = null;
-      timerSeconds = selectedMinutes * 60;
-      document.getElementById("startPauseBtn").textContent = "Start";
-      render();
-    }
+    function loadDefaultTasks(){const data=loadData(), key=ensureToday(data); data.days[key].tasks=DEFAULT_TASKS.map((text,i)=>({id:Date.now()+i,text,done:false})); saveData(data); render()}
+    function addTask(){const input=document.getElementById("newTaskInput"), text=input.value.trim(); if(!text) return; const data=loadData(), key=ensureToday(data); data.days[key].tasks.push({id:Date.now(),text,done:false}); saveData(data); input.value=""; render()}
+    function toggleTask(taskId){const data=loadData(), key=ensureToday(data); data.days[key].tasks=data.days[key].tasks.map(task=>task.id===taskId ? {...task,done:!task.done} : task); saveData(data); render()}
+    function deleteTask(taskId){const data=loadData(), key=ensureToday(data); data.days[key].tasks=data.days[key].tasks.filter(task=>task.id!==taskId); saveData(data); render()}
+    async function resetToday(){const data=loadData(); data.days[todayKey()]={tasks:DEFAULT_TASKS.map((text,i)=>({id:Date.now()+i,text,done:false})),sessionsToday:0}; saveData(data); await resetTimer(); updateMessage(); render()}
+    function calculateStreak(history){const uniqueDays=[...new Set(history)].sort().reverse(); if(!uniqueDays.length) return 0; let streak=0; const cursor=new Date(todayKey()+"T12:00:00"); for(let i=0;i<uniqueDays.length;i++){const expected=new Date(cursor); expected.setDate(cursor.getDate()-i); const exp=expected.toISOString().slice(0,10); if(uniqueDays[i]===exp) streak++; else break;} return streak}
 
-    function setTone(tone) {
-      const data = loadData();
-      data.tone = tone;
-      saveData(data);
-      updateMessage();
-      render();
-    }
+    function render(){
+      const data=loadData(), key=ensureToday(data); saveData(data);
+      const tone=data.tone || "gentle";
+      document.getElementById("toneBadge").textContent=tone==="tough" ? "Tough love" : "Gentle mode";
+      document.getElementById("gentleBtn").className=tone==="gentle" ? "secondary" : "ghost";
+      document.getElementById("toughBtn").className=tone==="tough" ? "secondary" : "ghost";
+      document.getElementById("sessionsValue").textContent=data.sessionsCompleted || 0;
+      const streak=calculateStreak(data.history || []);
+      document.getElementById("streakValue").textContent=streak + (streak===1 ? " day" : " days");
+      document.getElementById("weekValue").textContent=weeklySessions(data.history || []);
+      document.getElementById("timerTime").textContent=formatTime(timerSeconds);
+      document.getElementById("timerBox").className=running ? "timer running" : "timer";
+      const pct=Math.round(((selectedMinutes*60 - timerSeconds)/(selectedMinutes*60))*100);
+      document.getElementById("timerRing").style.setProperty("--progress", Math.max(0, Math.min(100, pct)) + "%");
+      document.getElementById("ringLabel").textContent=running ? "Focus" : "Ready";
 
-    function randomMessage(tone) {
-      const list = tone === "tough" ? TOUGH_MESSAGES : GENTLE_MESSAGES;
-      return list[Math.floor(Math.random() * list.length)];
-    }
-
-    function updateMessage(customMessage = null) {
-      const data = loadData();
-      const text = customMessage || randomMessage(data.tone || "gentle");
-      document.getElementById("messageBox").textContent = text;
-    }
-
-    function completeSession() {
-      const data = loadData();
-      const key = ensureToday(data);
-      data.sessionsCompleted = (data.sessionsCompleted || 0) + 1;
-      data.days[key].sessionsToday = (data.days[key].sessionsToday || 0) + 1;
-      data.history.push(key);
-      data.history = data.history.slice(-60);
-      saveData(data);
-      timerSeconds = selectedMinutes * 60;
-      document.getElementById("startPauseBtn").textContent = "Start";
-      updateMessage(data.tone === "tough"
-        ? "Sprint finished. Nice. Now put 5 more things away."
-        : "Sprint complete. Nice work — that counts."
-      );
-      render();
-      try { alert("Sprint complete!"); } catch (e) {}
-    }
-
-    function loadDefaultTasks() {
-      const data = loadData();
-      const key = ensureToday(data);
-      data.days[key].tasks = DEFAULT_TASKS.map((text, i) => ({ id: Date.now() + i, text, done: false }));
-      saveData(data);
-      render();
-    }
-
-    function addTask() {
-      const input = document.getElementById("newTaskInput");
-      const text = input.value.trim();
-      if (!text) return;
-      const data = loadData();
-      const key = ensureToday(data);
-      data.days[key].tasks.push({ id: Date.now(), text, done: false });
-      saveData(data);
-      input.value = "";
-      render();
-    }
-
-    function toggleTask(taskId) {
-      const data = loadData();
-      const key = ensureToday(data);
-      data.days[key].tasks = data.days[key].tasks.map(task =>
-        task.id === taskId ? { ...task, done: !task.done } : task
-      );
-      saveData(data);
-      render();
-    }
-
-    function deleteTask(taskId) {
-      const data = loadData();
-      const key = ensureToday(data);
-      data.days[key].tasks = data.days[key].tasks.filter(task => task.id !== taskId);
-      saveData(data);
-      render();
-    }
-
-    function resetToday() {
-      const data = loadData();
-      data.days[todayKey()] = {
-        tasks: DEFAULT_TASKS.map((text, i) => ({ id: Date.now() + i, text, done: false })),
-        sessionsToday: 0
-      };
-      saveData(data);
-      resetTimer();
-      updateMessage();
-      render();
-    }
-
-    function calculateStreak(history) {
-      const uniqueDays = [...new Set(history)].sort().reverse();
-      if (!uniqueDays.length) return 0;
-
-      let streak = 0;
-      const oneDay = 24 * 60 * 60 * 1000;
-      let cursor = new Date(todayKey()).getTime();
-
-      for (const day of uniqueDays) {
-        const t = new Date(day).getTime();
-        if (t === cursor) {
-          streak += 1;
-          cursor -= oneDay;
-        } else {
-          break;
-        }
-      }
-      return streak;
-    }
-
-    function render() {
-      const data = loadData();
-      const key = ensureToday(data);
-      saveData(data);
-
-      const tone = data.tone || "gentle";
-      document.getElementById("toneBadge").textContent = tone === "tough" ? "Tough love" : "Gentle mode";
-      document.getElementById("gentleBtn").className = tone === "gentle" ? "secondary" : "ghost";
-      document.getElementById("toughBtn").className = tone === "tough" ? "secondary" : "ghost";
-
-      document.getElementById("sessionsValue").textContent = data.sessionsCompleted || 0;
-      const streak = calculateStreak(data.history || []);
-      document.getElementById("streakValue").textContent = streak + (streak === 1 ? " day" : " days");
-
-      document.getElementById("timerTime").textContent = formatTime(timerSeconds);
-      document.getElementById("timerBox").className = running ? "timer running" : "timer";
-
-      const tasks = data.days[key].tasks || [];
-      const list = document.getElementById("taskList");
-      list.innerHTML = "";
-
-      tasks.forEach(task => {
-        const li = document.createElement("li");
-        if (task.done) li.classList.add("done");
-
-        const left = document.createElement("div");
-        left.className = "task-left";
-
-        const cb = document.createElement("input");
-        cb.type = "checkbox";
-        cb.checked = !!task.done;
-        cb.onchange = () => toggleTask(task.id);
-
-        const span = document.createElement("span");
-        span.className = "task-text";
-        span.textContent = task.text;
-
-        left.appendChild(cb);
-        left.appendChild(span);
-
-        const del = document.createElement("button");
-        del.className = "ghost";
-        del.style.padding = "9px 12px";
-        del.style.fontSize = ".9rem";
-        del.textContent = "Delete";
-        del.onclick = () => deleteTask(task.id);
-
-        li.appendChild(left);
-        li.appendChild(del);
-        list.appendChild(li);
+      const tasks=data.days[key].tasks || [], list=document.getElementById("taskList"); list.innerHTML="";
+      tasks.forEach(task=>{
+        const li=document.createElement("li"); if(task.done) li.classList.add("done");
+        const left=document.createElement("div"); left.className="task-left";
+        const cb=document.createElement("input"); cb.type="checkbox"; cb.checked=!!task.done; cb.onchange=()=>toggleTask(task.id);
+        const span=document.createElement("span"); span.className="task-text"; span.textContent=task.text;
+        left.appendChild(cb); left.appendChild(span);
+        const del=document.createElement("button"); del.className="ghost"; del.style.padding="9px 12px"; del.style.fontSize=".9rem"; del.textContent="Delete"; del.onclick=()=>deleteTask(task.id);
+        li.appendChild(left); li.appendChild(del); list.appendChild(li);
       });
 
-      const done = tasks.filter(t => t.done).length;
-      const total = tasks.length;
-      const pct = total ? Math.round((done / total) * 100) : 0;
-      document.getElementById("doneCount").textContent = done;
-      document.getElementById("totalCount").textContent = total;
-      document.getElementById("progressBar").style.width = pct + "%";
+      const done=tasks.filter(t=>t.done).length, total=tasks.length, taskPct=total ? Math.round((done/total)*100) : 0;
+      document.getElementById("doneCount").textContent=done;
+      document.getElementById("totalCount").textContent=total;
+      document.getElementById("progressBar").style.width=taskPct + "%";
+      renderWakeLockState();
     }
 
-    render();
-    updateMessage();
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById("installBanner").classList.add("show");
+    });
+
+    document.getElementById("installBtn").addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      document.getElementById("installBanner").classList.remove("show");
+    });
+
+    window.addEventListener("appinstalled", () => {
+      document.getElementById("installBanner").classList.remove("show");
+    });
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
+    }
+
+    document.addEventListener("visibilitychange", async ()=>{
+      const data=loadData();
+      if(document.visibilityState==="visible" && running && data.wakeLockEnabled) await requestWakeLock();
+    });
+
+    render(); updateMessage(); renderWakeLockState();
   </script>
 </body>
 </html>
