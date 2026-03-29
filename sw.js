@@ -1,4 +1,4 @@
-const CACHE_NAME = 'declutter-sprint-pro-v1';
+const CACHE_NAME = 'declutter-sprint-pro-v2';
 const ASSETS = ['./','./index.html','./manifest.json','./sw.js','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install', event => {

@@ -11,12 +11,12 @@
   <style>
     :root{--bg:#f5f7fb;--card:#ffffff;--text:#1f2937;--muted:#6b7280;--border:#e5e7eb;--accent:#4f46e5;--accent2:#16a34a;--soft:#eef2ff;--danger:#dc2626;--shadow:0 14px 34px rgba(0,0,0,.08);--radius:20px}
     *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#eef2ff 0%, var(--bg) 100%);color:var(--text);min-height:100vh}
-    .wrap{max-width:620px;margin:0 auto;padding:16px 14px 40px}
+    .wrap{max-width:720px;margin:0 auto;padding:16px 14px 40px}
     .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-top:14px}
     h1{margin:4px 0 6px;font-size:1.8rem;line-height:1.15} h2{margin:0 0 12px;font-size:1.1rem} p{margin:0} .sub{color:var(--muted);font-size:.96rem}
     .hero{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
     .pill{display:inline-block;padding:8px 12px;border-radius:999px;font-weight:700;font-size:.9rem;background:var(--soft);color:#3730a3}
-    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+    .grid3,.grid4{display:grid;gap:12px;margin-top:14px}.grid3{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}
     .stat{border:1px solid var(--border);border-radius:16px;padding:14px;background:#fafcff;transition:transform .18s ease, box-shadow .18s ease}
     .stat.pulse{transform:scale(1.02); box-shadow:0 10px 24px rgba(79,70,229,.14)}
     .stat .label{font-size:.85rem;color:var(--muted);margin-bottom:4px}.stat .value{font-size:1.5rem;font-weight:900}
@@ -36,8 +36,16 @@
     .task-left{display:flex;align-items:center;gap:12px;min-width:0;flex:1}.task-left input[type="checkbox"]{width:22px;height:22px}.task-text{font-size:1rem}.done .task-text{text-decoration:line-through;color:var(--muted)}
     .small{font-size:.9rem;color:var(--muted);margin-top:10px}.progress{height:10px;background:#eef2f7;border-radius:999px;overflow:hidden;margin-top:10px}.bar{height:100%;width:0%;background:var(--accent);transition:width .25s ease}
     .input-row{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:12px} input[type="text"]{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--border);font-size:1rem}
-    .mini-note{margin-top:10px;padding:10px 12px;border-radius:14px;background:#f8fafc;border:1px solid var(--border);font-size:.92rem;color:var(--muted)} .footer{text-align:center;color:var(--muted);font-size:.86rem;margin-top:16px}
-    @media (max-width:520px){.grid3,.toggle-row,.mode-row,.preset-row,.btn-row.two,.input-row{grid-template-columns:1fr}.timer-time{font-size:2.8rem}.hero{display:block}.pill{margin-top:10px}}
+    .mini-note{margin-top:10px;padding:10px 12px;border-radius:14px;background:#f8fafc;border:1px solid var(--border);font-size:.92rem;color:var(--muted)}
+    .bars{display:flex;align-items:end;gap:8px;height:160px;margin-top:10px;padding-top:6px}
+    .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:8px}
+    .bar-outer{width:100%;height:120px;background:#eef2f7;border-radius:14px;display:flex;align-items:end;overflow:hidden}
+    .bar-inner{width:100%;background:var(--accent);border-radius:14px 14px 0 0;min-height:4px;transition:height .25s ease}
+    .bar-day{font-size:.82rem;color:var(--muted)}
+    .toolbar-note{font-size:.88rem;color:#374151}
+    .footer{text-align:center;color:var(--muted);font-size:.86rem;margin-top:16px}
+    @media (max-width:680px){.grid4{grid-template-columns:1fr 1fr}}
+    @media (max-width:520px){.grid3,.grid4,.toggle-row,.mode-row,.preset-row,.btn-row.two,.input-row{grid-template-columns:1fr}.timer-time{font-size:2.8rem}.hero{display:block}.pill{margin-top:10px}}
   </style>
 </head>
 <body>
@@ -58,11 +66,13 @@
         <button class="secondary" id="installBtn" style="width:100%;">Install app</button>
       </div>
 
-      <div class="grid3">
+      <div class="grid4">
         <div id="sessionsStat" class="stat"><div class="label">Sessions completed</div><div id="sessionsValue" class="value">0</div></div>
         <div class="stat"><div class="label">Current streak</div><div id="streakValue" class="value">0 days</div></div>
         <div class="stat"><div class="label">This week</div><div id="weekValue" class="value">0</div></div>
+        <div class="stat"><div class="label">Minutes this week</div><div id="weekMinutesValue" class="value">0</div></div>
       </div>
+
       <div id="timerBox" class="timer">
         <div id="timerTime" class="timer-time">10:00</div>
         <p class="sub">Pick a sprint and press start</p>
@@ -86,8 +96,24 @@
         <button class="ghost" onclick="toggleWakeLock()" id="wakeLockBtn">Keep screen awake: Off</button>
         <button class="warning" onclick="showFreshMessage()">New nudge</button>
       </div>
+      <div class="mode-row">
+        <button class="ghost" onclick="toggleNudges()" id="nudgeBtn">Voice nudges: Off</button>
+        <button class="ghost" onclick="toggleSound()" id="soundBtn">Celebration sound: On</button>
+      </div>
       <div id="messageBox" class="message-box">A tidy corner still counts. Start small.</div>
       <div class="mini-note" id="wakeLockNote">Tip: turn on “Keep screen awake” before starting a sprint. It works best when the app is open on-screen.</div>
+      <div class="mini-note" id="nudgeNote">Optional voice nudges can speak every 5 minutes during a running sprint, if your phone allows speech audio.</div>
+    </div>
+
+    <div class="card">
+      <h2>Weekly dashboard</h2>
+      <div class="grid3">
+        <div class="stat"><div class="label">Best day this week</div><div id="bestDayValue" class="value">-</div></div>
+        <div class="stat"><div class="label">Average mins/day</div><div id="avgDayValue" class="value">0</div></div>
+        <div class="stat"><div class="label">Today so far</div><div id="todayMinsValue" class="value">0</div></div>
+      </div>
+      <div id="weeklyBars" class="bars"></div>
+      <div class="toolbar-note">Shows completed declutter minutes for the last 7 days.</div>
     </div>
 
     <div class="card">
@@ -115,24 +141,92 @@
       </ul>
     </div>
 
-    <div class="footer">Proper installable version with manifest, service worker, icons, and offline support.</div>
+    <div class="footer">Updated with weekly dashboard, celebration sound, and optional voice nudges.</div>
   </div>
 
   <script>
-    const STORAGE_KEY = "declutter_sprint_app_v3";
+    const STORAGE_KEY = "declutter_sprint_app_v4";
     const DEFAULT_TASKS = ["Clear one visible surface","Put away 10 stray items","Sort one small hotspot","Take one bag to recycling or donation"];
     const GENTLE_MESSAGES = ["A tidy corner still counts. Start small.","Ten focused minutes is enough to change the room.","You do not need to finish everything. Just begin.","Progress beats perfection every single time.","Choose the easiest task first and build momentum."];
     const TOUGH_MESSAGES = ["You do not need motivation. You need one honest start.","Stop circling the mess. Pick one area and attack it.","Ten minutes now beats thinking about it all evening.","No drama. No perfection. Move the clutter.","Future you will be delighted you did this properly."];
+    const DAY_NAMES = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 
-    let timerSeconds = 600, selectedMinutes = 10, timerId = null, running = false, wakeLock = null, deferredPrompt = null;
+    let timerSeconds = 600, selectedMinutes = 10, timerId = null, running = false, wakeLock = null, deferredPrompt = null, lastNudgeMinute = null;
+    let audioCtx = null;
 
     function todayKey(){const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
-    function startOfWeek(dateString){const d=new Date(dateString+"T12:00:00"); const day=(d.getDay()+6)%7; d.setDate(d.getDate()-day); return d.toISOString().slice(0,10)}
-    function loadData(){const raw=localStorage.getItem(STORAGE_KEY); if(!raw) return {tone:"gentle",sessionsCompleted:0,history:[],wakeLockEnabled:false,days:{}}; try{return JSON.parse(raw)}catch{return {tone:"gentle",sessionsCompleted:0,history:[],wakeLockEnabled:false,days:{}}}}
+    function parseLocalDate(dateString){return new Date(dateString+"T12:00:00")}
+    function formatDateKey(date){return date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0")}
+    function startOfWeek(dateString){const d=parseLocalDate(dateString); const day=(d.getDay()+6)%7; d.setDate(d.getDate()-day); return formatDateKey(d)}
+    function loadData(){const raw=localStorage.getItem(STORAGE_KEY); if(!raw) return {tone:"gentle",sessionsCompleted:0,history:[],wakeLockEnabled:false,nudgesEnabled:false,soundEnabled:true,days:{}}; try{return JSON.parse(raw)}catch{return {tone:"gentle",sessionsCompleted:0,history:[],wakeLockEnabled:false,nudgesEnabled:false,soundEnabled:true,days:{}}}}
     function saveData(data){localStorage.setItem(STORAGE_KEY, JSON.stringify(data))}
-    function ensureToday(data){const key=todayKey(); if(!data.days[key]) data.days[key]={tasks:DEFAULT_TASKS.map((text,i)=>({id:Date.now()+i,text,done:false})),sessionsToday:0}; return key}
+    function ensureToday(data){const key=todayKey(); if(!data.days[key]) data.days[key]={tasks:DEFAULT_TASKS.map((text,i)=>({id:Date.now()+i,text,done:false})),sessionsToday:0,completedMinutes:0}; if(data.days[key].completedMinutes==null) data.days[key].completedMinutes=0; return key}
     function formatTime(totalSeconds){const mins=Math.floor(totalSeconds/60), secs=totalSeconds%60; return String(mins).padStart(2,"0")+":"+String(secs).padStart(2,"0")}
-    function setPreset(minutes, btn){selectedMinutes=minutes; timerSeconds=minutes*60; running=false; clearInterval(timerId); timerId=null; document.querySelectorAll(".preset").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); document.getElementById("startPauseBtn").textContent="Start"; render()}
+    function setPreset(minutes, btn){selectedMinutes=minutes; timerSeconds=minutes*60; running=false; clearInterval(timerId); timerId=null; lastNudgeMinute=null; document.querySelectorAll(".preset").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); document.getElementById("startPauseBtn").textContent="Start"; render()}
+
+    function ensureAudioContext(){
+      if (!audioCtx) {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (Ctx) audioCtx = new Ctx();
+      }
+      if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+    }
+
+    function playCelebrationSound(){
+      const data = loadData();
+      if (!data.soundEnabled) return;
+      ensureAudioContext();
+      if (!audioCtx) return;
+      const now = audioCtx.currentTime;
+      const notes = [523.25, 659.25, 783.99, 1046.5];
+      notes.forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.0001, now + i*0.12);
+        gain.gain.exponentialRampToValueAtTime(0.12, now + i*0.12 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + i*0.12 + 0.18);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now + i*0.12);
+        osc.stop(now + i*0.12 + 0.2);
+      });
+    }
+
+    function speak(text){
+      const data = loadData();
+      if (!data.nudgesEnabled || !("speechSynthesis" in window)) return;
+      try {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.rate = 1;
+        utter.pitch = 1;
+        utter.volume = 1;
+        window.speechSynthesis.speak(utter);
+      } catch (e) {}
+    }
+
+    function getVoiceNudgeText(){
+      const data = loadData();
+      const tone = data.tone || "gentle";
+      if (tone === "tough") {
+        const lines = [
+          "Keep going. Five more minutes of action beats twenty minutes of thinking.",
+          "Do not drift. Pick up five items right now.",
+          "Stay with it. Finish this sprint properly.",
+          "You are already in motion. Keep the momentum."
+        ];
+        return lines[Math.floor(Math.random()*lines.length)];
+      }
+      const lines = [
+        "Nice. Keep going. A little progress still counts.",
+        "You are doing well. Keep moving for a few more minutes.",
+        "Stay steady. This sprint is helping more than you think.",
+        "Good work. Keep clearing one thing at a time."
+      ];
+      return lines[Math.floor(Math.random()*lines.length)];
+    }
 
     async function requestWakeLock(){
       const data=loadData(); if(!data.wakeLockEnabled) return;
@@ -144,26 +238,84 @@
     async function toggleWakeLock(){const data=loadData(); data.wakeLockEnabled=!data.wakeLockEnabled; saveData(data); if(data.wakeLockEnabled){await requestWakeLock(); document.getElementById("wakeLockNote").textContent="Keep screen awake is on. The app will try to stop the phone sleeping during a sprint."} else {await releaseWakeLock(); document.getElementById("wakeLockNote").textContent="Keep screen awake is off."} renderWakeLockState()}
     function renderWakeLockState(){const data=loadData(); const btn=document.getElementById("wakeLockBtn"); btn.textContent="Keep screen awake: "+(data.wakeLockEnabled ? "On" : "Off"); btn.className=data.wakeLockEnabled ? "secondary" : "ghost"}
 
+    function toggleNudges(){
+      const data = loadData();
+      data.nudgesEnabled = !data.nudgesEnabled;
+      saveData(data);
+      renderAudioControls();
+      if (data.nudgesEnabled) {
+        ensureAudioContext();
+        speak(data.tone === "tough" ? "Voice nudges on. Let's get on with it." : "Voice nudges on. Nice and steady.");
+      }
+    }
+
+    function toggleSound(){
+      const data = loadData();
+      data.soundEnabled = !data.soundEnabled;
+      saveData(data);
+      renderAudioControls();
+      if (data.soundEnabled) playCelebrationSound();
+    }
+
+    function renderAudioControls(){
+      const data = loadData();
+      const nudgeBtn = document.getElementById("nudgeBtn");
+      const soundBtn = document.getElementById("soundBtn");
+      nudgeBtn.textContent = "Voice nudges: " + (data.nudgesEnabled ? "On" : "Off");
+      soundBtn.textContent = "Celebration sound: " + (data.soundEnabled ? "On" : "Off");
+      nudgeBtn.className = data.nudgesEnabled ? "secondary" : "ghost";
+      soundBtn.className = data.soundEnabled ? "secondary" : "ghost";
+    }
+
     async function toggleTimer(){
-      if(running){running=false; clearInterval(timerId); timerId=null; document.getElementById("startPauseBtn").textContent="Start"; await releaseWakeLock(); render(); return;}
+      ensureAudioContext();
+      if(running){running=false; clearInterval(timerId); timerId=null; lastNudgeMinute=null; document.getElementById("startPauseBtn").textContent="Start"; await releaseWakeLock(); render(); return;}
       running=true; document.getElementById("startPauseBtn").textContent="Pause"; await requestWakeLock();
-      timerId=setInterval(()=>{timerSeconds-=1; render(); if(timerSeconds<=0){clearInterval(timerId); timerId=null; running=false; completeSession();}},1000);
+      timerId=setInterval(()=>{
+        timerSeconds-=1;
+        const elapsedMinutes = selectedMinutes - Math.ceil(timerSeconds / 60);
+        if (elapsedMinutes > 0 && elapsedMinutes % 5 === 0 && lastNudgeMinute !== elapsedMinutes && timerSeconds > 0) {
+          lastNudgeMinute = elapsedMinutes;
+          speak(getVoiceNudgeText());
+        }
+        render();
+        if(timerSeconds<=0){clearInterval(timerId); timerId=null; running=false; completeSession();}
+      },1000);
       render();
     }
-    async function resetTimer(){running=false; clearInterval(timerId); timerId=null; timerSeconds=selectedMinutes*60; document.getElementById("startPauseBtn").textContent="Start"; await releaseWakeLock(); render()}
+    async function resetTimer(){running=false; clearInterval(timerId); timerId=null; timerSeconds=selectedMinutes*60; lastNudgeMinute=null; document.getElementById("startPauseBtn").textContent="Start"; await releaseWakeLock(); render()}
     function setTone(tone){const data=loadData(); data.tone=tone; saveData(data); updateMessage(); render()}
     function randomMessage(tone){const list=tone==="tough" ? TOUGH_MESSAGES : GENTLE_MESSAGES; return list[Math.floor(Math.random()*list.length)]}
     function updateMessage(customMessage=null){const data=loadData(); document.getElementById("messageBox").textContent=customMessage || randomMessage(data.tone || "gentle")}
     function showFreshMessage(){updateMessage()}
     function weeklySessions(history){const thisWeek=startOfWeek(todayKey()); return (history||[]).filter(day=>startOfWeek(day)===thisWeek).length}
+    function weekMinutes(data){const thisWeek=startOfWeek(todayKey()); let total = 0; Object.keys(data.days || {}).forEach(day => { if (startOfWeek(day) === thisWeek) total += (data.days[day].completedMinutes || 0); }); return total; }
+
+    function getLast7DaysData(data){
+      const out = [];
+      const today = parseLocalDate(todayKey());
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        const key = formatDateKey(d);
+        out.push({
+          key,
+          label: DAY_NAMES[(d.getDay()+6)%7],
+          minutes: (data.days[key] && data.days[key].completedMinutes) || 0
+        });
+      }
+      return out;
+    }
 
     async function completeSession(){
       const data=loadData(), key=ensureToday(data);
       data.sessionsCompleted=(data.sessionsCompleted||0)+1;
       data.days[key].sessionsToday=(data.days[key].sessionsToday||0)+1;
+      data.days[key].completedMinutes=(data.days[key].completedMinutes||0)+selectedMinutes;
       data.history.push(key); data.history=data.history.slice(-120); saveData(data);
-      timerSeconds=selectedMinutes*60; document.getElementById("startPauseBtn").textContent="Start";
+      timerSeconds=selectedMinutes*60; document.getElementById("startPauseBtn").textContent="Start"; lastNudgeMinute=null;
       await releaseWakeLock();
+      playCelebrationSound();
       updateMessage(data.tone==="tough" ? "Sprint finished. Nice. Now put 5 more things away." : "Sprint complete. Nice work — that counts.");
       const stat=document.getElementById("sessionsStat"); stat.classList.add("pulse"); setTimeout(()=>stat.classList.remove("pulse"),500);
       render();
@@ -175,8 +327,40 @@
     function addTask(){const input=document.getElementById("newTaskInput"), text=input.value.trim(); if(!text) return; const data=loadData(), key=ensureToday(data); data.days[key].tasks.push({id:Date.now(),text,done:false}); saveData(data); input.value=""; render()}
     function toggleTask(taskId){const data=loadData(), key=ensureToday(data); data.days[key].tasks=data.days[key].tasks.map(task=>task.id===taskId ? {...task,done:!task.done} : task); saveData(data); render()}
     function deleteTask(taskId){const data=loadData(), key=ensureToday(data); data.days[key].tasks=data.days[key].tasks.filter(task=>task.id!==taskId); saveData(data); render()}
-    async function resetToday(){const data=loadData(); data.days[todayKey()]={tasks:DEFAULT_TASKS.map((text,i)=>({id:Date.now()+i,text,done:false})),sessionsToday:0}; saveData(data); await resetTimer(); updateMessage(); render()}
-    function calculateStreak(history){const uniqueDays=[...new Set(history)].sort().reverse(); if(!uniqueDays.length) return 0; let streak=0; const cursor=new Date(todayKey()+"T12:00:00"); for(let i=0;i<uniqueDays.length;i++){const expected=new Date(cursor); expected.setDate(cursor.getDate()-i); const exp=expected.toISOString().slice(0,10); if(uniqueDays[i]===exp) streak++; else break;} return streak}
+    async function resetToday(){const data=loadData(); data.days[todayKey()]={tasks:DEFAULT_TASKS.map((text,i)=>({id:Date.now()+i,text,done:false})),sessionsToday:0,completedMinutes:0}; saveData(data); await resetTimer(); updateMessage(); render()}
+    function calculateStreak(history){const uniqueDays=[...new Set(history)].sort().reverse(); if(!uniqueDays.length) return 0; let streak=0; const cursor=parseLocalDate(todayKey()); for(let i=0;i<uniqueDays.length;i++){const expected=new Date(cursor); expected.setDate(cursor.getDate()-i); const exp=formatDateKey(expected); if(uniqueDays[i]===exp) streak++; else break;} return streak}
+
+    function renderWeeklyDashboard(data){
+      const rows = getLast7DaysData(data);
+      const maxMins = Math.max(10, ...rows.map(r => r.minutes));
+      const wrap = document.getElementById("weeklyBars");
+      wrap.innerHTML = "";
+      let best = rows.reduce((a,b)=> b.minutes > a.minutes ? b : a, {label:"-", minutes:0});
+      rows.forEach(r => {
+        const col = document.createElement("div");
+        col.className = "bar-col";
+        const mins = document.createElement("div");
+        mins.className = "small";
+        mins.style.marginTop = "0";
+        mins.textContent = r.minutes;
+        const outer = document.createElement("div");
+        outer.className = "bar-outer";
+        const inner = document.createElement("div");
+        inner.className = "bar-inner";
+        inner.style.height = Math.max(4, Math.round((r.minutes / maxMins) * 100)) + "%";
+        outer.appendChild(inner);
+        const day = document.createElement("div");
+        day.className = "bar-day";
+        day.textContent = r.label;
+        col.appendChild(mins);
+        col.appendChild(outer);
+        col.appendChild(day);
+        wrap.appendChild(col);
+      });
+      document.getElementById("bestDayValue").textContent = best.minutes ? best.label : "-";
+      document.getElementById("avgDayValue").textContent = Math.round(rows.reduce((s,r)=>s+r.minutes,0) / 7);
+      document.getElementById("todayMinsValue").textContent = rows[6].minutes;
+    }
 
     function render(){
       const data=loadData(), key=ensureToday(data); saveData(data);
@@ -188,6 +372,7 @@
       const streak=calculateStreak(data.history || []);
       document.getElementById("streakValue").textContent=streak + (streak===1 ? " day" : " days");
       document.getElementById("weekValue").textContent=weeklySessions(data.history || []);
+      document.getElementById("weekMinutesValue").textContent=weekMinutes(data);
       document.getElementById("timerTime").textContent=formatTime(timerSeconds);
       document.getElementById("timerBox").className=running ? "timer running" : "timer";
       const pct=Math.round(((selectedMinutes*60 - timerSeconds)/(selectedMinutes*60))*100);
@@ -210,6 +395,8 @@
       document.getElementById("totalCount").textContent=total;
       document.getElementById("progressBar").style.width=taskPct + "%";
       renderWakeLockState();
+      renderAudioControls();
+      renderWeeklyDashboard(data);
     }
 
     window.addEventListener("beforeinstallprompt", (e) => {
@@ -239,7 +426,7 @@
       if(document.visibilityState==="visible" && running && data.wakeLockEnabled) await requestWakeLock();
     });
 
-    render(); updateMessage(); renderWakeLockState();
+    render(); updateMessage(); renderWakeLockState(); renderAudioControls();
   </script>
 </body>
 </html>
