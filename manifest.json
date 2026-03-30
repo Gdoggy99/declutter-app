@@ -1,7 +1,7 @@
 {
   "name": "Declutter Sprint Pro",
   "short_name": "Declutter",
-  "description": "A simple installable decluttering sprint timer and checklist app.",
+  "description": "Installable decluttering sprint timer and checklist app.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
